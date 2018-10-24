@@ -1,5 +1,6 @@
 Module def_par
   implicit none
+  !
   Integer:: N1, N2, dim
   !Ni: U(2) of i-representation
   !dim: global matrix dimension dim=N1+1+N2+1
