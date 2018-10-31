@@ -54,6 +54,7 @@ contains
       !Output: prod_1= \prod_{i=1}^{N1-N2-p} \sqrt{(l+i)}
       !
       !*************************************************************************
+      implicit none
       Integer,intent(in):: p,l
       Double precision:: prod_1
       Integer:: i
@@ -80,6 +81,7 @@ contains
       !Output: prod_2= \prod_{j=1}^{p} \sqrt{(N2-l+j)}
       !
       !*************************************************************************
+      implicit none
       Integer,intent(in):: p,l
       Double precision:: prod_2
       Integer:: j
@@ -92,5 +94,51 @@ contains
       !
     end Function prod_2
     !
+    !***************************************************************************
+    !
+    Function Global_matrix(H1,H2,V)
+      !*************************************************************************
+      !
+      !Inputs:  H1---------------> (N1+1)x(N1+1) hermitian matrix
+      !         H2---------------> (N2+1)x(N2+1) hermitian matrix
+      !         V ---------------> (N1+1)x(N2+1) interaction matrix
+      !
+      !Output:  Global_matrix----> (N1+N2+2)x(N1+N2+2) hermitian matrix
+      !                            /         \
+      !                           |       |   |
+      !                      H =  |   H1  | V |
+      !                           |_______|___|
+      !                           |   Vt  | H2|
+      !                            \         /
+      !
+      !*************************************************************************
+      implicit none
+      Double precision, intent(in):: H1(0:N1,0:N1), H2(0:N2,0:N2), V(0:N1,0:N2)
+      Double precision:: Global_matrix(0:N1+N2+1,0:N1+N2+1)
+      integer i,j
+      !
+      Global_matrix=0.0d0
+      !
+      do i=0,N1
+         do j=0,N1
+            Global_matrix(i,j)=H1(i,j)
+         end do
+      end do
+      !
+      do i=0,N2
+         do j=0,N2
+            Global_matrix(N1+1+i,N1+1+j)=H2(i,j)
+         end do
+      end do
+      !
+      do i=0,N2
+         do j=0,N1
+            Global_matrix(j,N1+1+i)=V(j,i)
+            Global_matrix(N1+1+i,j)=V(i,j)
+         end do
+      end do
+      !
+    end Function Global_matrix
+    
   end Module mix_inter
   
