@@ -5,7 +5,7 @@
 ######################################################
 bin_path=../bin
 #
-test_program_src = par_def.f90 test.f90
+test_program_src = par_def.f90 test.f90 mix_inter.f90
 test_program_obj = $(test_program_src:.f90=.o)
 #
 .SUFFIXES: 

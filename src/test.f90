@@ -1,27 +1,22 @@
 program test
+  !
   use def_par
+  use mix_inter
   use f95_lapack, only: la_syevr
+  !
   implicit none
-  Double precision,allocatable::H(:,:),E(:)
+  Double precision,allocatable::H(:,:),E(:),V(:,:)
   integer:: i,j
   !
-  alp1=0.0
-  bet1=0.0
-  del1=1.0
   N1=4
+  N2=2
   !
-  allocate(H(0:N1,0:N1),E(0:N1))
+  allocate(V(0:N1,0:N2))
   !
-  call U2_ham(alp1,bet1,del1,0.0d0,N1,H)
+  V = V_mix_op(2)
   !
-  do i = 0,N1
-     write(*,*) (H(i,j),j=0,N1)
-  end do
-  !
-  call la_syevr(H,E,'V','U')
-  !
-  do i = 0,N1
-     write(*,*) E(i)
+  do j = 0,N2
+     write(*,*) (V(i,j), i=0,N1)
   end do
   !
 end program test
