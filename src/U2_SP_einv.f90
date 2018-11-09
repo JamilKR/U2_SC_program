@@ -2,6 +2,7 @@ Program U2_SP_einv
   !
   use def_par
   use mix_inter
+  use obs_def
   use f95_lapack, only: la_syevr
   !
   implicit none
@@ -25,7 +26,8 @@ Program U2_SP_einv
   Double precision,allocatable:: H1(:,:), H2(:,:), V_int(:,:),V_aux(:,:)
   Double precision,allocatable:: H_global(:,:),E_lev(:)
   Double precision:: Energy_zero !Zero energy
-  Integer i
+  Integer i,j
+  Double precision,allocatable:: IPR1(:), IPR2(:), IPRT(:)
   !
   Namelist/OUT/ output_file,Eigenvec
   Namelist/U2dim/ N1, N2
@@ -52,7 +54,8 @@ Program U2_SP_einv
   !
   close(11)
   !
-  Allocate(H1(0:N1,0:N1),H2(0:N2,0:N2),V_int(0:N1,0:N2),V_aux(0:N1,0:N2))
+  Allocate(H1(0:N1,0:N1),H2(0:N2,0:N2),V_int(0:N1,0:N2),V_aux(0:N1,0:N2),)
+  Allocate(IPR1(0:N1+N2+1), IPR2(0:N1+N2+1), IPRT(0:N1+N2+1))
   !
   ! H1 and H2 building
   !
@@ -81,12 +84,30 @@ Program U2_SP_einv
   !
   E_lev=E_lev-Energy_zero
   !
+  !IPRs:
+  IPR1=0.0d0
+  IPR2=0.0d0
+  IPRT=0.0d0
+  !
+  do j=0,N1+N2+1
+     IPR1(j)=partial_U2_IPR(H_global(:,j),0)
+     IPR2(j)=partial_U2_IPR(H_global(:,j),1)
+     IPRT(j)=total_U2_IPR(H_global(:,j))
+  enddo
+  !
   write(*,*) 'The zero energy is: ', Energy_zero
   write(*,*)
   !
+10 format('Level          Energy             IPR1              IPR2              IPR   ')
+12 format('____________________________________________________________________________')
+11 format(I4, Es20.3, 3Es18.2)
+  !
+  write(*,10)
+  write(*,12)
   do i=0,N1+N2+1
-     write(*,*) 'Level ',i,' Energy= ', E_lev(i)
+     write(*,11) i, E_lev(i), IPR1(i), IPR2(i), IPRT(i)
   enddo
   !
+
 end Program U2_SP_einv
 

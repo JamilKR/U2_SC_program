@@ -8,7 +8,7 @@ bin_path=../bin
 test_program_src = par_def.f90 test.f90 mix_inter.f90
 test_program_obj = $(test_program_src:.f90=.o)
 #
-ei_val_pgm_src = par_def.f90 mix_inter.f90 U2_SP_einv.f90
+ei_val_pgm_src = par_def.f90 mix_inter.f90 obs_def.f90 U2_SP_einv.f90
 ei_val_pgm_obj = $(ei_val_pgm_src:.f90=.o)
 #
 .SUFFIXES: 
