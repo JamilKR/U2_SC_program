@@ -1,0 +1,18 @@
+#
+# Calculation program
+#
+&OUT output_file='output.dat', Eigenvec=.T. /
+#
+&U2dim N1=10, N2=5 /
+#
+&U2par1 alp1=1.0d0, bet1=0.0d0, del1=0.0d0 /
+&U2par2 alp2=1.0d0, bet2=0.0d0, del2=0.0d0, delta=1.0d0 /
+#
+#Interaction: MAX----------> Maximun number of interactions
+#             INT_orders---> Array with MAX components=interaction orders
+#             INT_coef-----> Array with MAX components=interaction initial
+#                            parameters
+&INT_dim MAX=2/
+#
+#&INT_par INT_orders=0,1, INT_coef=0.0d0,0.0d0 /
+&INT_par INT_orders=0,1 INT_coef=0.0d0,0.0d0 /
