@@ -1,0 +1,32 @@
+#
+# Calculation program
+#
+&OUT output_file='output.dat', exp_file='energies.dat'/
+#
+&U2dim N1=10, N2=3 /
+#
+&U2par1 alp1=-10.0d0, bet1=0.0d0, del1=0.0d0 /
+&U2par2 alp2=0.0d0, bet2=0.0d0, del2=0.0d0, delta=10.0d0 /
+#
+#Interaction: MAX----------> Maximun number of interactions
+#             INT_orders---> Array with MAX components=interaction orders
+#             INT_coef-----> Array with MAX components=interaction initial
+#                            parameters
+&INT_dim MAX=1/
+#
+&INT_par INT_orders=0 INT_coef=0.0d0 /
+#
+&Mnt fixed_par='fix 4 5 6 7 8 ' /
+#
+#Fixed_par: minuit input
+#
+# alp1 -----> 1
+# bet1 -----> 2
+# del1 -----> 3
+# alp2 -----> 4
+# bet2 -----> 5
+# del2 -----> 6
+# delta ----> 7
+# Int1 -----> 8
+#     (...)
+# IntMAX ---> 7+MAX
