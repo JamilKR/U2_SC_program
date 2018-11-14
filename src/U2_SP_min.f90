@@ -57,13 +57,14 @@ Program U2_SP_min
      write(*,*) "----------->ERROR<----------"
      write(*,*) " N2 must be smaller than N1 "
      stop
-  else if (MAX .gt. int(N1-N2)) then
+  else if (MAX .gt. int(N1-N2+1)) then
      write(*,*) "--------------------------->ERROR<--------------------------"
      write(*,*) " The total number of interactions cant be higher than N1-N2 "
      stop
   else if (maxval(INT_orders) .gt. int(N1-N2)) then
      write(*,*) "--------------------->ERROR<--------------------"
      write(*,*) " The highest order interaction allowed is N1-N2 "
+     stop
   endif
   !
   Allocate(H1(0:N1,0:N1),H2(0:N2,0:N2),V_int(0:N1,0:N2),V_aux(0:N1,0:N2),)
@@ -111,10 +112,10 @@ Program U2_SP_min
   write(12,25) del2
   write(12,26) delta
   !
-20 format("1        'eps1 ' ",D20.10,"          0.1D-02")
+20 format("1        'alp1 ' ",D20.10,"          0.1D-02")
 21 format("2        'bet1 ' ",D20.10,"          0.1D-02")
 22 format("3        'del1 ' ",D20.10,"          0.1D-02")
-23 format("4        'eps2 ' ",D20.10,"          0.1D-02")
+23 format("4        'alp2 ' ",D20.10,"          0.1D-02")
 24 format("5        'bet2 ' ",D20.10,"          0.1D-02")
 25 format("6        'del2 ' ",D20.10,"          0.1D-02")
 26 format("7        'delta ' ",D20.10,"          0.1D-02")

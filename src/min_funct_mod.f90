@@ -164,9 +164,11 @@ Contains
     write(*,*) "********************RESIDUALS**********************"
     write(*,*) "***************************************************"
     do j=1,long_exp !Fix the exp energy
-       write(*,101) QN_exp(j),(E_lev(QN_exp(j))-E_exp(j))
+       if (E_exp(j) .ne. 0.0) then
+          write(*,101) QN_exp(j),(E_lev(QN_exp(j))-E_exp(j)),(E_lev(QN_exp(j))-E_exp(j))*100.0d0/E_exp(j)
+       endif
     enddo
-101 format("Estado ",I4," Residual ",D15.5)
+101 format("Estado ",I4," Residual ",D15.5,'(',F7.2,'%)')
     !
   end Subroutine pretty_out
   
