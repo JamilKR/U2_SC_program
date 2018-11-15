@@ -14,6 +14,9 @@ ei_val_pgm_obj = $(ei_val_pgm_src:.f90=.o)
 min_sp_pgm_src= par_def.f90 mix_inter.f90 obs_def.f90 min_funct_mod.f90 minuit-cern.f U2_SP_min.f90
 min_sp_pgm_obj= par_def.o mix_inter.o obs_def.o min_funct_mod.o minuit-cern.o U2_SP_min.o
 #
+basic_U2_min_src= par_def.f90  min_U2_BASIC_mod.f90  minuit-cern.f U2_BASIC_min.f90
+basic_U2_min_obj= par_def.o  min_U2_BASIC_mod.o  minuit-cern.o U2_BASIC_min.o
+#
 .SUFFIXES: 
 .SUFFIXES: .o .f90 .oOMP .f
 #
@@ -48,5 +51,24 @@ min_SP_pgm:	$(min_sp_pgm_obj) Makefile
 		$(info)
 		$(fc) -o $(bin_path)/$@_$(fc) $(min_sp_pgm_obj) $(global_opt) $(LIBS)
 #
+min_U2_pgm:	$(basic_U2_min_obj) Makefile
+		$(info)
+		$(fc) -o $(bin_path)/$@_$(fc) $(basic_U2_min_obj) $(global_opt) $(LIBS)
+#
+
+
 clean:
-	@rm -f *.o *.mod
+		$(info)
+		@rm -f *.o *.mod
+		$(info Al files from the bin folder will be removed!)
+		$(info)
+		@echo 'Are you sure?(y/n)'
+		@read  ans; \
+		an=$$ans
+		@echo
+		$(ifeq ($(an),[Yy]))
+			@rm $(bin_path)/*
+		$(else)
+			@echo 'Have fun with the program!'
+		$(endif)
+

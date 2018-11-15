@@ -1,0 +1,13 @@
+#
+# Namelist: U(2) basic Hamiltonian
+#
+&OUT output_file='output_U2.dat', exp_file='U2_energies.dat' /
+#
+&U2 N1=40, alp1=0.0, bet1=0.0, del1=1.0 /
+#
+&Mnt fixed_par='fix  '/
+#
+# alp1 ---> 1
+# bet1 ---> 2
+# del1 ---> 3
+#
